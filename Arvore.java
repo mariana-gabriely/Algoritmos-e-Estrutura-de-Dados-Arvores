@@ -41,4 +41,15 @@ public class Arvore {
         
     }
 
+    public void preOrdem(No no) {
+        if (raiz == null) {
+            System.out.println("A árvore está vazia.");
+        } else if (no != null) {
+            System.out.print(no.getConteudo() + " ");
+            preOrdem(no.getFilhoEsquerdo());
+            preOrdem(no.getFilhoDireito());
+        }
+        
+    }
+
 }

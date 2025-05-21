@@ -13,5 +13,7 @@ public class Main {
 
         arvore.contarNos();
         
+        System.out.println("Nós em pré-ordem: ");
+        arvore.preOrdem(arvore.getRaiz());
     }
 }
