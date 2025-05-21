@@ -13,7 +13,10 @@ public class Main {
 
         arvore.contarNos();
         
-        System.out.println("Nós em pré-ordem: ");
+        System.out.println("\nNós em pré-ordem: ");
         arvore.preOrdem(arvore.getRaiz());
+
+        System.out.println("\nNós em em-ordem: ");
+        arvore.emOrdem(arvore.getRaiz());
     }
 }

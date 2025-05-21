@@ -52,4 +52,15 @@ public class Arvore {
         
     }
 
+    public void emOrdem(No no) {
+        if (raiz == null) {
+            System.out.println("A árvore está vazia.");
+            return;
+        } else if (no != null) {
+            emOrdem(no.getFilhoEsquerdo());
+            System.out.print(no.getConteudo() + " ");
+            emOrdem(no.getFilhoDireito());
+        }
+    }
+
 }
