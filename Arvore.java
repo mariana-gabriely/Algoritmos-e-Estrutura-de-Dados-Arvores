@@ -63,4 +63,15 @@ public class Arvore {
         }
     }
 
+    public void posOrdem(No no) {
+        if (raiz == null) {
+            System.out.println("A árvore está vazia.");
+            return;
+        } else if (no != null) {
+            posOrdem(no.getFilhoEsquerdo());
+            posOrdem(no.getFilhoDireito());
+            System.out.print(no.getConteudo() + " ");
+        }
+    }
+
 }

@@ -12,11 +12,14 @@ public class Main {
         System.out.println("Árvore criada com sucesso!");
 
         arvore.contarNos();
-        
+
         System.out.println("\nNós em pré-ordem: ");
         arvore.preOrdem(arvore.getRaiz());
 
         System.out.println("\nNós em em-ordem: ");
         arvore.emOrdem(arvore.getRaiz());
+
+        System.out.println("\nNós em pós-ordem: ");
+        arvore.posOrdem(arvore.getRaiz());
     }
 }
