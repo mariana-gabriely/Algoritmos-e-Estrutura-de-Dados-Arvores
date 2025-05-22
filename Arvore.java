@@ -1,6 +1,8 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Arvore {
     private No raiz;
-    private int qtdNos;
 
     public Arvore() {
         this.raiz = null;
@@ -13,7 +15,6 @@ public class Arvore {
         } else {
             raiz.inserir(conteudo);
         }
-        qtdNos++;
     }
 
     public No getRaiz() {
@@ -24,27 +25,16 @@ public class Arvore {
         this.raiz = raiz;
     }
 
-    public int getQtdNos() {
-        return qtdNos;
-    }
-
-    public void setQtdNos(int qtdNos) {
-        this.qtdNos = qtdNos;
-    }
-
-    public void contarNos() {
-        if (raiz == null) {
-            System.out.println("A árvore está vazia.");
+    public int contarNos(No no) {
+        if (no == null) {
+            return 0;
         } else {
-            System.out.println("Número de nós: " + qtdNos);
+            return 1 + contarNos(no.getFilhoEsquerdo()) + contarNos(no.getFilhoDireito());
         }
-        
     }
 
     public void preOrdem(No no) {
-        if (raiz == null) {
-            System.out.println("A árvore está vazia.");
-        } else if (no != null) {
+        if (no != null) {
             System.out.print(no.getConteudo() + " ");
             preOrdem(no.getFilhoEsquerdo());
             preOrdem(no.getFilhoDireito());
@@ -53,10 +43,7 @@ public class Arvore {
     }
 
     public void emOrdem(No no) {
-        if (raiz == null) {
-            System.out.println("A árvore está vazia.");
-            return;
-        } else if (no != null) {
+        if (no != null) {
             emOrdem(no.getFilhoEsquerdo());
             System.out.print(no.getConteudo() + " ");
             emOrdem(no.getFilhoDireito());
@@ -64,13 +51,31 @@ public class Arvore {
     }
 
     public void posOrdem(No no) {
-        if (raiz == null) {
-            System.out.println("A árvore está vazia.");
-            return;
-        } else if (no != null) {
+        if (no != null) {
             posOrdem(no.getFilhoEsquerdo());
             posOrdem(no.getFilhoDireito());
             System.out.print(no.getConteudo() + " ");
+        }
+    }
+
+    public void emNivel() {
+        if (raiz == null) {
+            System.out.println("Árvore vazia.");
+            return;
+        }
+
+        Queue<No> fila = new LinkedList<>();
+        fila.add(raiz);
+
+        while (!fila.isEmpty()) {
+            No noAtual = fila.poll();
+            System.out.print(noAtual.getConteudo() + " ");
+            if (noAtual.getFilhoEsquerdo() != null) {
+                fila.add(noAtual.getFilhoEsquerdo());
+            }
+            if (noAtual.getFilhoDireito() != null) {
+                fila.add(noAtual.getFilhoDireito());
+            }
         }
     }
 

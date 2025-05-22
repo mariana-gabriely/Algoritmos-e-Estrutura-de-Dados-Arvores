@@ -3,8 +3,6 @@ public class No {
     private No filhoEsquerdo;
     private No filhoDireito;
 
-
-
     public No(Integer conteudo) {
         this.conteudo = conteudo;
         this.filhoDireito = null;
@@ -12,7 +10,7 @@ public class No {
     }
 
     public Integer getConteudo() {
-        return conteudo;
+        return this.conteudo;
     }
 
     public void setConteudo(Integer conteudo) {
@@ -20,7 +18,7 @@ public class No {
     }
 
     public No getFilhoEsquerdo() {
-        return filhoEsquerdo;
+        return this.filhoEsquerdo;
     }
 
     public void setFilhoEsquerdo(No filhoEsquerdo) {
@@ -28,7 +26,7 @@ public class No {
     }
 
     public No getFilhoDireito() {
-        return filhoDireito;
+        return this.filhoDireito;
     }
 
     public void setFilhoDireito(No filhoDireito) {
@@ -50,5 +48,4 @@ public class No {
             }
         }
     }
-
 }

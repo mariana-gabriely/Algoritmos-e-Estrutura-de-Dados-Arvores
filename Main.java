@@ -11,7 +11,7 @@ public class Main {
 
         System.out.println("Árvore criada com sucesso!");
 
-        arvore.contarNos();
+        System.out.println("\nContagem de nós: " + arvore.contarNos(arvore.getRaiz()));
 
         System.out.println("\nNós em pré-ordem: ");
         arvore.preOrdem(arvore.getRaiz());
@@ -21,5 +21,8 @@ public class Main {
 
         System.out.println("\nNós em pós-ordem: ");
         arvore.posOrdem(arvore.getRaiz());
+
+        System.out.println("\nNós em nível: ");
+        arvore.emNivel();
     }
 }
