@@ -11,16 +11,16 @@ public class Main {
 
         System.out.println("Árvore criada com sucesso!");
 
-        System.out.println("\nContagem de nós: " + arvore.contarNos(arvore.getRaiz()));
+        System.out.println("\nContagem de nós: " + arvore.contarNos());
 
         System.out.println("\nNós em pré-ordem: ");
-        arvore.preOrdem(arvore.getRaiz());
+        arvore.preOrdem();
 
         System.out.println("\nNós em em-ordem: ");
-        arvore.emOrdem(arvore.getRaiz());
+        arvore.emOrdem();
 
         System.out.println("\nNós em pós-ordem: ");
-        arvore.posOrdem(arvore.getRaiz());
+        arvore.posOrdem();
 
         System.out.println("\nNós em nível: ");
         arvore.emNivel();
