@@ -11,18 +11,21 @@ public class Main {
 
         System.out.println("Árvore criada com sucesso!");
 
-        System.out.println("\nContagem de nós: " + arvore.contarNos());
+        System.out.println("\nContagem de nós: " + arvore.contarNosIterativo());
 
         System.out.println("\nNós em pré-ordem: ");
-        arvore.preOrdem();
+        arvore.preOrdemIterativo();
 
         System.out.println("\nNós em em-ordem: ");
-        arvore.emOrdem();
+        arvore.emOrdemIterativo();
 
         System.out.println("\nNós em pós-ordem: ");
-        arvore.posOrdem();
+        arvore.posOrdemIterativo();
 
         System.out.println("\nNós em nível: ");
         arvore.emNivel();
+
+        System.out.println("Nós folha: " + arvore.contarNosFolha(arvore.getRaiz()));
+        System.out.println("Nós folha: " + arvore.contarNosFolhaIterativo());
     }
 }

@@ -25,7 +25,15 @@ public class Arvore {
         this.raiz = raiz;
     }
 
-    public int contarNos() {
+    public int contarNos(No no) {
+        if (no == null) {
+            return 0;
+        } else {
+            return 1 + contarNos(no.getFilhoEsquerdo()) + contarNos(no.getFilhoDireito());
+        }
+    }
+
+    public int contarNosIterativo() {
         if (raiz == null) return 0;
 
         int count = 0;
@@ -47,7 +55,16 @@ public class Arvore {
         return count;
     }
 
-    public void preOrdem() {
+    public void preOrdem(No no) {
+        if (no != null) {
+            System.out.print(no.getConteudo() + " ");
+            preOrdem(no.getFilhoEsquerdo());
+            preOrdem(no.getFilhoDireito());
+        }
+        
+    }
+
+    public void preOrdemIterativo() {
         if (raiz == null) return;
 
         Stack<No> pilha = new Stack<>();
@@ -66,7 +83,15 @@ public class Arvore {
         }
     }
 
-    public void emOrdem() {
+    public void emOrdem(No no) {
+        if (no != null) {
+            emOrdem(no.getFilhoEsquerdo());
+            System.out.print(no.getConteudo() + " ");
+            emOrdem(no.getFilhoDireito());
+        }
+    }
+
+    public void emOrdemIterativo() {
         Stack<No> pilha = new Stack<>();
         No atual = raiz;
 
@@ -82,7 +107,15 @@ public class Arvore {
         }
     }
 
-    public void posOrdem() {
+    public void posOrdem(No no) {
+        if (no != null) {
+            posOrdem(no.getFilhoEsquerdo());
+            posOrdem(no.getFilhoDireito());
+            System.out.print(no.getConteudo() + " ");
+        }
+    }
+
+    public void posOrdemIterativo() {
         if (raiz == null) return;
 
         Stack<No> pilha1 = new Stack<>();
@@ -126,4 +159,42 @@ public class Arvore {
             }
         }
     }
+
+
+    public int contarNosFolha(No no) {
+        if (no == null) {
+            return 0;
+        }
+        if (no.getFilhoEsquerdo() == null && no.getFilhoDireito() == null) {
+            return 1;
+        }
+        return contarNosFolha(no.getFilhoEsquerdo()) + contarNosFolha(no.getFilhoDireito());
+    }
+
+    public int contarNosFolhaIterativo() {
+        if (raiz == null) return 0;
+
+        int count = 0;
+        Stack<No> pilha = new Stack<>();
+        pilha.push(raiz);
+
+        while (!pilha.isEmpty()) {
+            No atual = pilha.pop();
+
+            if (atual.getFilhoEsquerdo() == null && atual.getFilhoDireito() == null) {
+                count++;
+            }
+
+            if (atual.getFilhoDireito() != null) {
+                pilha.push(atual.getFilhoDireito());
+            }
+            
+            if (atual.getFilhoEsquerdo() != null) {
+                pilha.push(atual.getFilhoEsquerdo());
+            }
+        }
+
+        return count;
+    }
+
 }
