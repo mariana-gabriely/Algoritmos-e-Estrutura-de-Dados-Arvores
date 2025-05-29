@@ -2,11 +2,13 @@ public class No {
     private Integer conteudo;
     private No filhoEsquerdo;
     private No filhoDireito;
+    private int fatorBalanceamento;
 
     public No(Integer conteudo) {
         this.conteudo = conteudo;
         this.filhoDireito = null;
         this.filhoEsquerdo = null;
+        this.fatorBalanceamento = 0;
     }
 
     public Integer getConteudo() {
@@ -31,6 +33,14 @@ public class No {
 
     public void setFilhoDireito(No filhoDireito) {
         this.filhoDireito = filhoDireito;
+    }
+
+    public int getFatorBalanceamento() {
+        return this.fatorBalanceamento;
+    }
+
+    public void setFatorBalanceamento(int fatorBalanceamento) {
+        this.fatorBalanceamento = fatorBalanceamento;
     }
 
     public void inserir(Integer conteudo) {
