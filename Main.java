@@ -1,13 +1,12 @@
 public class Main {
     public static void main(String[] args) {
         Arvore arvore = new Arvore();
-        arvore.inserir(6);
-        arvore.inserir(4);
-        arvore.inserir(2);
-        arvore.inserir(5);
-        arvore.inserir(7);
-        arvore.inserir(9);
-        arvore.inserir(11);
+        arvore.inserir("A");
+        arvore.inserir("B");
+        arvore.inserir("C");
+        arvore.inserir("D");
+        arvore.inserir("E");
+        arvore.inserir("F");
 
         System.out.println("Árvore criada com sucesso!");
 
@@ -25,7 +24,7 @@ public class Main {
         System.out.println("\nNós em nível: ");
         arvore.emNivel();
 
-        System.out.println("Nós folha: " + arvore.contarNosFolha(arvore.getRaiz()));
-        System.out.println("Nós folha: " + arvore.contarNosFolhaIterativo());
+        System.out.println("\nNós folhas: " + arvore.contarNosFolha(arvore.getRaiz()));
+        System.out.println("\nNós folhas iterativo: " + arvore.contarNosFolhaIterativo(arvore.getRaiz()));
     }
 }

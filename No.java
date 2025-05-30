@@ -1,26 +1,26 @@
 public class No {
-    private Integer conteudo;
+    private String conteudo;
     private No filhoEsquerdo;
     private No filhoDireito;
     private int fatorBalanceamento;
 
-    public No(Integer conteudo) {
+    public No(String conteudo){
         this.conteudo = conteudo;
-        this.filhoDireito = null;
         this.filhoEsquerdo = null;
+        this.filhoDireito = null;
         this.fatorBalanceamento = 0;
     }
 
-    public Integer getConteudo() {
-        return this.conteudo;
+    public String getConteudo() {
+        return conteudo;
     }
 
-    public void setConteudo(Integer conteudo) {
+    public void setConteudo(String conteudo) {
         this.conteudo = conteudo;
     }
 
     public No getFilhoEsquerdo() {
-        return this.filhoEsquerdo;
+        return filhoEsquerdo;
     }
 
     public void setFilhoEsquerdo(No filhoEsquerdo) {
@@ -28,7 +28,7 @@ public class No {
     }
 
     public No getFilhoDireito() {
-        return this.filhoDireito;
+        return filhoDireito;
     }
 
     public void setFilhoDireito(No filhoDireito) {
@@ -36,26 +36,10 @@ public class No {
     }
 
     public int getFatorBalanceamento() {
-        return this.fatorBalanceamento;
+        return fatorBalanceamento;
     }
 
     public void setFatorBalanceamento(int fatorBalanceamento) {
         this.fatorBalanceamento = fatorBalanceamento;
-    }
-
-    public void inserir(Integer conteudo) {
-        if (conteudo < this.conteudo) {
-            if (this.filhoEsquerdo == null) {
-                this.filhoEsquerdo = new No(conteudo);
-            } else {
-                this.filhoEsquerdo.inserir(conteudo);
-            }
-        } else if (conteudo > this.conteudo) {
-            if (this.filhoDireito == null) {
-                this.filhoDireito = new No(conteudo);
-            } else {
-                this.filhoDireito.inserir(conteudo);
-            }
-        }
     }
 }

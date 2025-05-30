@@ -1,20 +1,12 @@
+import java.util.Stack;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.Stack;
 
 public class Arvore {
     private No raiz;
 
     public Arvore() {
         this.raiz = null;
-    }
-
-    public void inserir(Integer conteudo) {
-        if (raiz == null) {
-            raiz = new No(conteudo);
-        } else {
-            raiz.inserir(conteudo);
-        }
     }
 
     public No getRaiz() {
@@ -25,11 +17,41 @@ public class Arvore {
         this.raiz = raiz;
     }
 
-    public int contarNos(No no) {
+
+    public void inserir(String elemento) {
+        No novo = new No(elemento);
+        if (raiz == null) {
+            raiz = novo;
+            return;
+        }
+
+        Queue<No> fila = new LinkedList<>();
+        fila.add(raiz);
+
+        while (!fila.isEmpty()) {
+            No atual = fila.poll();
+
+            if (atual.getFilhoEsquerdo() == null) {
+                atual.setFilhoEsquerdo(novo);
+                return;
+            } else {
+                fila.add(atual.getFilhoEsquerdo());
+            }
+
+            if (atual.getFilhoDireito() == null) {
+                atual.setFilhoDireito(novo);
+                return;
+            } else {
+                fila.add(atual.getFilhoDireito());
+            }
+        }
+    }
+
+    public int contaNos(No no) {
         if (no == null) {
             return 0;
         } else {
-            return 1 + contarNos(no.getFilhoEsquerdo()) + contarNos(no.getFilhoDireito());
+            return 1 + contaNos(no.getFilhoEsquerdo()) + contaNos(no.getFilhoDireito());
         }
     }
 
@@ -55,13 +77,13 @@ public class Arvore {
         return count;
     }
 
+
     public void preOrdem(No no) {
         if (no != null) {
             System.out.print(no.getConteudo() + " ");
             preOrdem(no.getFilhoEsquerdo());
             preOrdem(no.getFilhoDireito());
         }
-        
     }
 
     public void preOrdemIterativo() {
@@ -106,6 +128,7 @@ public class Arvore {
             atual = atual.getFilhoDireito();
         }
     }
+
 
     public void posOrdem(No no) {
         if (no != null) {
@@ -160,7 +183,6 @@ public class Arvore {
         }
     }
 
-
     public int contarNosFolha(No no) {
         if (no == null) {
             return 0;
@@ -171,30 +193,27 @@ public class Arvore {
         return contarNosFolha(no.getFilhoEsquerdo()) + contarNosFolha(no.getFilhoDireito());
     }
 
-    public int contarNosFolhaIterativo() {
-        if (raiz == null) return 0;
+    public int contarNosFolhaIterativo(No no) {
+        if (no == null) return 0;
 
-        int count = 0;
         Stack<No> pilha = new Stack<>();
-        pilha.push(raiz);
+        pilha.push(no);
+
+        int contadorNoFolha = 0;
 
         while (!pilha.isEmpty()) {
             No atual = pilha.pop();
-
             if (atual.getFilhoEsquerdo() == null && atual.getFilhoDireito() == null) {
-                count++;
+                contadorNoFolha++;
             }
-
             if (atual.getFilhoDireito() != null) {
                 pilha.push(atual.getFilhoDireito());
             }
-            
             if (atual.getFilhoEsquerdo() != null) {
                 pilha.push(atual.getFilhoEsquerdo());
             }
         }
-
-        return count;
+        return contadorNoFolha;
     }
 
 }
