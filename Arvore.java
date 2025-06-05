@@ -17,7 +17,6 @@ public class Arvore {
         this.raiz = raiz;
     }
 
-
     public void inserir(String elemento) {
         No novo = new No(elemento);
         if (raiz == null) {
@@ -216,4 +215,137 @@ public class Arvore {
         return contadorNoFolha;
     }
 
+
+    // Método de exclusão corrigido
+    public void excluirNo(String elemento) {
+        if (raiz == null) {
+            System.out.println("Árvore vazia.");
+            return;
+        }
+
+        Queue<No> fila = new LinkedList<>();
+        fila.add(raiz);
+
+        No noParaExcluir = null;
+        No ultimoNo = null;
+        No paiDoUltimoNo = null;
+
+        while (!fila.isEmpty()) {
+            No atual = fila.poll();
+
+            if (atual.getConteudo().equals(elemento)) {
+                noParaExcluir = atual;
+            }
+
+            if (atual.getFilhoEsquerdo() != null) {
+                paiDoUltimoNo = atual;
+                fila.add(atual.getFilhoEsquerdo());
+            }
+            if (atual.getFilhoDireito() != null) {
+                paiDoUltimoNo = atual;
+                fila.add(atual.getFilhoDireito());
+            }
+
+            ultimoNo = atual;
+        }
+
+        if (noParaExcluir != null) {
+            // Substitui conteúdo
+            noParaExcluir.setConteudo(ultimoNo.getConteudo());
+
+            // Remove o último nó da árvore
+            if (paiDoUltimoNo != null) {
+                if (paiDoUltimoNo.getFilhoDireito() == ultimoNo) {
+                    paiDoUltimoNo.setFilhoDireito(null);
+                } else if (paiDoUltimoNo.getFilhoEsquerdo() == ultimoNo) {
+                    paiDoUltimoNo.setFilhoEsquerdo(null);
+                }
+            } else {
+                // Se o único nó é a raiz
+                raiz = null;
+            }
+        } else {
+            System.out.println("Elemento não encontrado.");
+        }
+    }
+
+
+    public void buscarNo(String elemento) {
+        if (raiz == null) {
+            System.out.println("Árvore vazia.");
+            return;
+        }
+
+        Queue<No> fila = new LinkedList<>();
+        fila.add(raiz);
+
+        while (!fila.isEmpty()) {
+            No atual = fila.poll();
+            if (atual.getConteudo().equals(elemento)) {
+                System.out.println("Elemento encontrado: " + atual.getConteudo());
+                return;
+            }
+
+            if (atual.getFilhoEsquerdo() != null) {
+                fila.add(atual.getFilhoEsquerdo());
+            }
+            if (atual.getFilhoDireito() != null) {
+                fila.add(atual.getFilhoDireito());
+            }
+        }
+
+        System.out.println("Elemento não encontrado.");
+    }
+
+    public void rotacaoLL() {
+        if (raiz == null || raiz.getFilhoEsquerdo() == null) {
+            System.out.println("Rotação LL não é possível.");
+            return;
+        }
+
+        No novoRaiz = raiz.getFilhoEsquerdo();
+        raiz.setFilhoEsquerdo(novoRaiz.getFilhoDireito());
+        novoRaiz.setFilhoDireito(raiz);
+        raiz = novoRaiz;
+    }
+
+    public void rotacaoRR() {
+        if (raiz == null || raiz.getFilhoDireito() == null) {
+            System.out.println("Rotação RR não é possível.");
+            return;
+        }
+
+        No novoRaiz = raiz.getFilhoDireito();
+        raiz.setFilhoDireito(novoRaiz.getFilhoEsquerdo());
+        novoRaiz.setFilhoEsquerdo(raiz);
+        raiz = novoRaiz;
+    }
+
+    public void rotacaoLR() {
+        if (raiz == null || raiz.getFilhoEsquerdo() == null || raiz.getFilhoEsquerdo().getFilhoDireito() == null) {
+            System.out.println("Rotação LR não é possível.");
+            return;
+        }
+
+        No novoRaiz = raiz.getFilhoEsquerdo().getFilhoDireito();
+        raiz.getFilhoEsquerdo().setFilhoDireito(novoRaiz.getFilhoEsquerdo());
+        novoRaiz.setFilhoEsquerdo(raiz.getFilhoEsquerdo());
+        raiz.setFilhoEsquerdo(novoRaiz.getFilhoDireito());
+        novoRaiz.setFilhoDireito(raiz);
+        raiz = novoRaiz;
+    }
+
+    public void rotacaoRL() {
+        if (raiz == null || raiz.getFilhoDireito() == null || raiz.getFilhoDireito().getFilhoEsquerdo() == null) {
+            System.out.println("Rotação RL não é possível.");
+            return;
+        }
+
+        No novoRaiz = raiz.getFilhoDireito().getFilhoEsquerdo();
+        raiz.getFilhoDireito().setFilhoEsquerdo(novoRaiz.getFilhoDireito());
+        novoRaiz.setFilhoDireito(raiz.getFilhoDireito());
+        raiz.setFilhoDireito(novoRaiz.getFilhoEsquerdo());
+        novoRaiz.setFilhoEsquerdo(raiz);
+        raiz = novoRaiz;
+    }
 }
