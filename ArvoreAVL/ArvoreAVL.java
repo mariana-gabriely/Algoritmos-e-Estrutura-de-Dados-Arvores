@@ -1,53 +1,110 @@
+package ArvoreAVL;
+
 import java.util.Stack;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class Arvore {
-    private No raiz;
+class ArvoreAVL {
+    No raiz;
 
-    public Arvore() {
+    ArvoreAVL() {
         this.raiz = null;
     }
 
-    public No getRaiz() {
+    No getRaiz() {
         return raiz;
     }
 
-    public void setRaiz(No raiz) {
+    void setRaiz(No raiz) {
         this.raiz = raiz;
     }
 
+    int altura(No no) {
+        if (no == null) 
+            return 0;
+        return no.getAltura();
+    }
 
-    public void inserir(String elemento) {
-        No novo = new No(elemento);
-        if (raiz == null) {
-            raiz = novo;
-            return;
+    int fatorBalanceamento(No no) {
+        if (no == null) return 0;
+        return altura(no.getFilhoEsquerdo()) - altura(no.getFilhoDireito());
+    }
+
+    No rotacaoDireita(No y) {
+        No x = y.getFilhoEsquerdo();
+        No T2 = x.getFilhoDireito();
+
+        x.setFilhoDireito(y);
+        y.setFilhoEsquerdo(T2);
+
+        y.setAltura(Math.max(altura(y.getFilhoEsquerdo()), altura(y.getFilhoDireito())) + 1);
+        x.setAltura(Math.max(altura(x.getFilhoEsquerdo()), altura(x.getFilhoDireito())) + 1);
+
+        return x;
+    }
+
+    No rotacaoEsquerda(No x) {
+        No y = x.getFilhoDireito();
+        No T2 = y.getFilhoEsquerdo();
+
+        y.setFilhoEsquerdo(x);
+        x.setFilhoDireito(T2);
+
+        x.setAltura(Math.max(altura(x.getFilhoEsquerdo()), altura(x.getFilhoDireito())) + 1);
+        y.setAltura(Math.max(altura(y.getFilhoEsquerdo()), altura(y.getFilhoDireito())) + 1);
+
+        return y;
+    }
+
+    No inserir(No no, int conteudo) {
+        if(no == null){ 
+            return new No(conteudo);
         }
 
-        Queue<No> fila = new LinkedList<>();
-        fila.add(raiz);
+        if (conteudo < no.getConteudo()){
+            no.setFilhoEsquerdo(inserir(no.getFilhoEsquerdo(), conteudo));
+        } else if (conteudo > no.getConteudo()) {
+            no.setFilhoDireito(inserir(no.getFilhoDireito(), conteudo));
+        } else {
+            return no;
+        }
 
-        while (!fila.isEmpty()) {
-            No atual = fila.poll();
+        no.setAltura(1 + Math.max(altura(no.getFilhoEsquerdo()), altura(no.getFilhoDireito())));
+        
+        int balanceamento = fatorBalanceamento(no);
 
-            if (atual.getFilhoEsquerdo() == null) {
-                atual.setFilhoEsquerdo(novo);
-                return;
-            } else {
-                fila.add(atual.getFilhoEsquerdo());
-            }
+        if(balanceamento > 1 && conteudo < no.getFilhoEsquerdo().getConteudo()){
+            return rotacaoDireita(no);
+        }
 
-            if (atual.getFilhoDireito() == null) {
-                atual.setFilhoDireito(novo);
-                return;
-            } else {
-                fila.add(atual.getFilhoDireito());
-            }
+        if(balanceamento > -1 && conteudo > no.getFilhoDireito().getConteudo()){
+            return rotacaoDireita(no);
+        }
+
+        if(balanceamento > 1 && conteudo < no.getFilhoEsquerdo().getConteudo()){
+            no.setFilhoEsquerdo(rotacaoEsquerda(no.getFilhoEsquerdo()));
+            return rotacaoDireita(no);
+        }
+
+        if(balanceamento > -1 && conteudo < no.getFilhoDireito().getConteudo()){
+            no.setFilhoDireito(no.getFilhoDireito());
+            return rotacaoEsquerda(no);
+        }
+
+        return no;
+
+    }
+
+    void percursoEmOrdem(No no) {
+        if (no != null) {
+            percursoEmOrdem(no.getFilhoEsquerdo());
+            System.out.println(no.getConteudo() + " ");
+            percursoEmOrdem(no.getFilhoDireito());
         }
     }
 
-    public int contaNos(No no) {
+
+    int contaNos(No no) {
         if (no == null) {
             return 0;
         } else {
@@ -55,8 +112,9 @@ public class Arvore {
         }
     }
 
-    public int contarNosIterativo() {
-        if (raiz == null) return 0;
+    int contarNosIterativo() {
+        if (raiz == null)
+            return 0;
 
         int count = 0;
         Stack<No> pilha = new Stack<>();
@@ -73,12 +131,10 @@ public class Arvore {
                 pilha.push(atual.getFilhoEsquerdo());
             }
         }
-
         return count;
     }
 
-
-    public void preOrdem(No no) {
+    void preOrdem(No no) {
         if (no != null) {
             System.out.print(no.getConteudo() + " ");
             preOrdem(no.getFilhoEsquerdo());
@@ -86,8 +142,9 @@ public class Arvore {
         }
     }
 
-    public void preOrdemIterativo() {
-        if (raiz == null) return;
+    void preOrdemIterativo() {
+        if (raiz == null)
+            return;
 
         Stack<No> pilha = new Stack<>();
         pilha.push(raiz);
@@ -105,7 +162,7 @@ public class Arvore {
         }
     }
 
-    public void emOrdem(No no) {
+    void emOrdem(No no) {
         if (no != null) {
             emOrdem(no.getFilhoEsquerdo());
             System.out.print(no.getConteudo() + " ");
@@ -113,7 +170,7 @@ public class Arvore {
         }
     }
 
-    public void emOrdemIterativo() {
+    void emOrdemIterativo() {
         Stack<No> pilha = new Stack<>();
         No atual = raiz;
 
@@ -129,8 +186,7 @@ public class Arvore {
         }
     }
 
-
-    public void posOrdem(No no) {
+    void posOrdem(No no) {
         if (no != null) {
             posOrdem(no.getFilhoEsquerdo());
             posOrdem(no.getFilhoDireito());
@@ -138,8 +194,9 @@ public class Arvore {
         }
     }
 
-    public void posOrdemIterativo() {
-        if (raiz == null) return;
+    void posOrdemIterativo() {
+        if (raiz == null)
+            return;
 
         Stack<No> pilha1 = new Stack<>();
         Stack<No> pilha2 = new Stack<>();
@@ -162,7 +219,7 @@ public class Arvore {
         }
     }
 
-    public void emNivel() {
+    void emNivel() {
         if (raiz == null) {
             System.out.println("Árvore vazia.");
             return;
@@ -183,7 +240,7 @@ public class Arvore {
         }
     }
 
-    public int contarNosFolha(No no) {
+    int contarNosFolha(No no) {
         if (no == null) {
             return 0;
         }
@@ -193,8 +250,9 @@ public class Arvore {
         return contarNosFolha(no.getFilhoEsquerdo()) + contarNosFolha(no.getFilhoDireito());
     }
 
-    public int contarNosFolhaIterativo(No no) {
-        if (no == null) return 0;
+    int contarNosFolhaIterativo(No no) {
+        if (no == null)
+            return 0;
 
         Stack<No> pilha = new Stack<>();
         pilha.push(no);
@@ -215,5 +273,4 @@ public class Arvore {
         }
         return contadorNoFolha;
     }
-
 }

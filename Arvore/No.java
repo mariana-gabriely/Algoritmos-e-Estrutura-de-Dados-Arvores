@@ -1,3 +1,5 @@
+package Arvore;
+
 public class No {
     private String conteudo;
     private No filhoEsquerdo;
